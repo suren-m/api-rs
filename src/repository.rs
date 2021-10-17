@@ -1,6 +1,9 @@
 use std::env;
 
+use crate::dto::UpdateRequest;
+use crate::error::Error;
 use crate::schema::users;
+use crate::schema::users::dsl::*;
 use crate::{
     dto::SignupRequest,
     models::{NewUser, User},
@@ -18,7 +21,7 @@ pub fn establish_connection() -> PgConnection {
     PgConnection::establish(&database_url).expect(&format!("Error connecting to {}", database_url))
 }
 
-fn create_user<'a>(conn: &PgConnection, req: SignupRequest) -> User {
+pub fn create_user<'a>(req: SignupRequest, conn: &PgConnection) -> User {
     let new_user = NewUser {
         firstname: &req.firstname,
         lastname: &req.lastname,
@@ -33,14 +36,33 @@ fn create_user<'a>(conn: &PgConnection, req: SignupRequest) -> User {
 }
 
 pub fn get_users(conn: &PgConnection) -> Vec<User> {
-    use crate::schema::users::dsl::*;
     users.load::<User>(conn).expect("Error loading users")
 }
 
 pub fn get_user(loginreq_email: &str, conn: &PgConnection) -> User {
-    use crate::schema::users::dsl::*;
     users
         .filter(email.eq(loginreq_email))
         .first(conn)
         .expect("Error loading user")
+}
+
+pub fn get_user_by_id(user_id: i32, conn: &PgConnection) -> User {
+    users.find(user_id).first(conn).expect("Error loading user")
+}
+
+pub fn user_exists(loginreq_email: &str, conn: &PgConnection) -> bool {
+    match users.filter(email.eq(loginreq_email)).first::<User>(conn) {
+        Ok(_) => true,
+        Err(_) => false,
+    }
+}
+
+pub fn update_user(user_id: i32, update_req: UpdateRequest, conn: &PgConnection) {
+    diesel::update(users.find(user_id))
+        .set((
+            firstname.eq(update_req.firstname),
+            lastname.eq(update_req.lastname),
+        ))
+        .get_result::<User>(conn)
+        .expect(&format!("Unable to find user {}", user_id));
 }
