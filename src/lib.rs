@@ -4,6 +4,7 @@ use warp::Rejection;
 extern crate diesel;
 
 pub mod auth;
+pub mod crypto;
 pub mod dto;
 pub mod error;
 pub mod models;

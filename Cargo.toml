@@ -15,3 +15,4 @@ chrono = "0.4"
 thiserror = "1.0"
 diesel = { version = "1.4.8", features = ["postgres"] }
 dotenv = "0.15.0"
+bcrypt = "0.10"

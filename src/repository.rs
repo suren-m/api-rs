@@ -1,5 +1,6 @@
 use std::env;
 
+use crate::crypto::hash_pass;
 use crate::dto::UpdateRequest;
 use crate::error::Error;
 use crate::schema::users;
@@ -26,7 +27,7 @@ pub fn create_user<'a>(req: SignupRequest, conn: &PgConnection) -> User {
         firstname: &req.firstname,
         lastname: &req.lastname,
         email: &req.email,
-        password: &req.password,
+        password: &hash_pass(&req.password),
     };
 
     diesel::insert_into(users::table)

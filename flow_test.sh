@@ -1,5 +1,5 @@
 signup_resp=`curl http://localhost:8000/signup -s \
--d '{ "email": "joeadams2@example.com", "password": "12345", "firstname" : "joe2", "lastname" : "adams" }' \
+-d '{ "email": "user@userland.com", "password": "12345", "firstname" : "joe", "lastname" : "adams" }' \
 -H 'Content-Type: application/json'`
 
 echo $signup_resp
@@ -7,7 +7,7 @@ echo $signup_resp
 echo "\n---------------\n"
 
 login_resp=`curl http://localhost:8000/login -s \
--d '{"email": "user@userland.com", "password": "1234"}' \
+-d '{"email": "user@userland.com", "password": "12345"}' \
 -H 'Content-Type: application/json'`
 
 echo "Login Response \n"

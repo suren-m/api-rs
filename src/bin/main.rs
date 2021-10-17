@@ -1,4 +1,5 @@
 use api_rs::auth::{self, with_auth};
+use api_rs::crypto::{hash_pass, verify_hash};
 use api_rs::dto::{
     LoginRequest, LoginResponse, SignupRequest, UpdateRequest, UserResponse, UsersResponse,
 };
@@ -60,7 +61,9 @@ pub async fn login_handler(body: LoginRequest) -> WebResult<impl Reply> {
     let conn = establish_connection();
     let user = get_user(&body.email, &conn);
 
-    if user.email == body.email && user.password == body.password {
+    let is_password_valid = verify_hash(&body.password, &user.password);
+
+    if user.email == body.email && is_password_valid {
         let token = auth::create_jwt(&user.id).map_err(|e| reject::custom(e))?;
         Ok(reply::json(&LoginResponse { token }))
     } else {
