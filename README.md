@@ -1,5 +1,8 @@
 # api-rs
 
+![Screenshot from 2021-10-17 22-50-12](https://user-images.githubusercontent.com/3830633/137646213-346ab210-d42a-4e8d-8d18-52c0435c6983.png)
+
+
 # Diesel ORM Setup
 
 # Setup env variable to connect to local Postgres
