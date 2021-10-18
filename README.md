@@ -6,10 +6,10 @@
 docker-compose up --build
 ```
 
-### To test all the endpoints
+### To test all the endpoints and flows
 
 ```
-chmod +x ./api/flow_test.sh
+chmod +x ./app/flow_test.sh
 ./flow_test.sh
 ```
 
