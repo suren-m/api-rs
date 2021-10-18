@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yml
+  - ../base
+  - pgadmin/deploy.yml
+# patchesStrategicMerge:
+#   - overrides.yml
+namespace: api
+commonLabels:
+  environment: dev
+# kustomize edit set image surenmcode/litecoin=surenmcode/litecoin:0.18.1
+images:
+  - name: surenmcode/api-rs
+    newTag: "0.1"

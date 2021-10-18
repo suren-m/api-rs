@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: api-rs
+  name: api-rs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-rs
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: api-rs
+    spec:
+      containers:
+        - image: surenmcode/api-rs:0.1
+          name: api-rs
+          resources: {}
+          command: ["bin/bash", "-c", "--"]
+          args: [
+              "
+              echo waiting;
+              sleep 30s;
+              api-server;
+              ",
+            ]
+          env:
+            - name: DATABASE_URL
+              value: postgres://postgres:postgres@api-db-0/api_db
+status: {}

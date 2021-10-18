@@ -1,0 +1,5 @@
+resources:
+  - db/statefulset.yml
+  - db/svc.yml
+  - api/deploy.yml
+  - api/svc.yml

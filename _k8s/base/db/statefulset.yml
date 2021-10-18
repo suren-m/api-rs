@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: api-db
+spec:
+  selector:
+    matchLabels:
+      app: api-db
+  serviceName: "api-db-svc"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: api-db
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: api-db
+          image: surenmcode/api-db:postgres-14
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /data
+          env:
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD # todo! Use Secrets
+              value: postgres
+            - name: PGDATA
+              value: /data/pgdata
+  volumeClaimTemplates: # dynamic provisioning of volumes via pvc
+    - metadata:
+        name: postgres-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
