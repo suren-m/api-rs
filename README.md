@@ -1,15 +1,17 @@
 # api-rs
 
-# To run locally using Docker: 
+Web API in Rust that demonstrates JWT based flows and data persistence using Postgres
+
+### To run locally using Docker: 
 
 ```
 docker-compose up --build
 ```
 
-### To test all the endpoints
+### To test all the endpoints and flows
 
 ```
-chmod +x ./api/flow_test.sh
+chmod +x ./app/flow_test.sh
 ./flow_test.sh
 ```
 
@@ -84,6 +86,7 @@ api-rs on  main [!]
 
 * Unit & Integration tests
 * Validations on Request Body (Email validation, max length, etc.)
+* Logging and improvements to error handling
 * Auto docs generation and OpenAPI integration
 * CI pipeline
 
