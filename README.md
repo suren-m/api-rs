@@ -2,7 +2,7 @@
 
 Web API in Rust that demonstrates JWT based flows and data persistence using Postgres
 
-### To run locally using Docker: 
+### To run: (both api and postgres)
 
 ```bash
 docker-compose up --build
@@ -17,7 +17,7 @@ chmod +x app/flow_test.sh
 app/flow_test.sh
 ```
 
-![Screenshot from 2021-10-17 22-50-12](https://user-images.githubusercontent.com/3830633/137646213-346ab210-d42a-4e8d-8d18-52c0435c6983.png)
+![Screenshot from 2021-10-18 18-54-26](https://user-images.githubusercontent.com/3830633/137782465-c7ba7880-6352-4a39-8a7d-5c702bbdff3a.png)
 
 ---
 
