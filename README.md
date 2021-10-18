@@ -8,7 +8,7 @@ Web API in Rust that demonstrates JWT based flows and data persistence using Pos
 docker-compose up --build
 ```
 
-### To test all the endpoints and flows
+### To test all the endpoints and flows:
 
 ```bash
 # requires curl & jq
