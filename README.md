@@ -20,13 +20,13 @@ chmod +x ./api/flow_test.sh
 ### Project Structure
 
 * app directory
-    * Contains Rust source code with modules and binary. `lib.rs` exports all the other modules acts as a root.
+    * contains Rust source code, including `modules` and `api_server` binary. `lib.rs` is the root module.
     * src/bin/api_server.rs - endpoints
     * also includes the application's Dockerfile    
 * postgres-docker
-    * Docker image for postgres along with `init.sql`
+    * docker image for postgres along with `init.sql`
 * _k8s 
-    * Kustomization manifests to run the solution on Kubernetes if required. (not fully tested yet)
+    * kustomization manifests to run the solution on Kubernetes if required. (not fully tested yet)
 
 ```
 api-rs on  main [!] 
@@ -70,11 +70,6 @@ api-rs on  main [!]
 └── README.md
 ```
 
-#### Todo 
-
-* Unit & Integration tests
-* Validations on Request Body (Email validation, max length, etc.)
-
 #### Essential Rust Frameworks and Crates Used
 
 * Diesel ORM for Data Access    
@@ -84,6 +79,13 @@ api-rs on  main [!]
 * jsonwebtoken for JWT
 * Serde for serializing and deserializing json
 * Bcrypt for hashing
+
+#### Todo
+
+* Unit & Integration tests
+* Validations on Request Body (Email validation, max length, etc.)
+* Auto docs generation and OpenAPI integration
+* CI pipeline
 
 #### References:
 
