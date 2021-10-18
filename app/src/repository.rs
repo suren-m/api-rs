@@ -2,7 +2,6 @@ use std::env;
 
 use crate::crypto::hash_pass;
 use crate::dto::UpdateRequest;
-use crate::error::Error;
 use crate::schema::users;
 use crate::schema::users::dsl::*;
 use crate::{

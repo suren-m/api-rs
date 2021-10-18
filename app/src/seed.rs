@@ -3,17 +3,17 @@ use std::collections::HashMap;
 use crate::{dto::SignupRequest, models::User, repository::establish_connection};
 
 pub fn init_users() -> HashMap<i32, User> {
-    let mut map = HashMap::new();
-    let conn = establish_connection();
+    let map: HashMap<i32, User> = HashMap::new();
+    let _conn = establish_connection();
 
-    let user1 = SignupRequest {
+    let _user1 = SignupRequest {
         firstname: String::from("john"),
         lastname: String::from("denver"),
         email: String::from("user@userland.com"),
         password: String::from("1234"),
     };
 
-    let user2 = SignupRequest {
+    let _user2 = SignupRequest {
         firstname: String::from("jane"),
         lastname: String::from("doe"),
         email: String::from("admin@adminaty.com"),

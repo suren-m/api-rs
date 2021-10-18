@@ -1,0 +1,42 @@
+version: '3'
+services:
+  postgres:
+    build: 
+      context: ./postgres-docker    
+    hostname: postgres-docker
+    ports:
+      - "6543:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres      
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - postgres
+    ports:
+      - "5555:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+    restart: unless-stopped
+
+
+  api:
+    build:
+      context: ./app
+    depends_on:
+      - postgres
+    ports:
+      - "8000:8000"
+    # Give some time for the database to come up
+    command: >
+      bash -c "echo waiting
+      && sleep 10
+      && api-server"    
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres-docker/api_db
+    restart: unless-stopped
+    
+

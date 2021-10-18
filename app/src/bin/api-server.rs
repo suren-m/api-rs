@@ -1,20 +1,32 @@
+extern crate diesel;
+#[macro_use]
+extern crate diesel_migrations;
+
+use diesel_migrations::embed_migrations;
+
+// https://docs.rs/diesel/0.16.0/diesel/macro.embed_migrations.html
+embed_migrations!();
+
+use warp::{reject, reply, Filter, Reply};
+
 use api_rs::auth::{self, with_auth};
-use api_rs::crypto::{hash_pass, verify_hash};
+use api_rs::crypto::verify_hash;
 use api_rs::dto::{
     LoginRequest, LoginResponse, SignupRequest, UpdateRequest, UserResponse, UsersResponse,
 };
 use api_rs::error::{self, Error::*};
 use api_rs::repository::{
-    create_user, establish_connection, get_user, get_user_by_id, get_users, update_user,
-    user_exists,
+    create_user, establish_connection, get_user, get_users, update_user, user_exists,
 };
 use api_rs::WebResult;
-use warp::{reject, reply, Filter, Reply};
 
 #[tokio::main]
 async fn main() {
+    println!("Establishing Connection");
     let conn = establish_connection();
-    let _ = get_users(&conn);
+
+    println!("Running Migrations");
+    let _ = embedded_migrations::run(&conn).expect("unable to run migrations");
 
     let signup_route = warp::path!("signup")
         .and(warp::post())
@@ -44,10 +56,11 @@ async fn main() {
         .recover(error::handle_rejection);
 
     println!("listening on port 8000");
-    warp::serve(routes).run(([127, 0, 0, 1], 8000)).await;
+    warp::serve(routes).run(([0, 0, 0, 0], 8000)).await;
 }
 
 pub async fn signup_handler(body: SignupRequest) -> WebResult<impl Reply> {
+    println!("Signup Request");
     let conn = establish_connection();
     if user_exists(&body.email, &conn) {
         return Err(reject::custom(UserAlreadyExistsError));
@@ -58,6 +71,7 @@ pub async fn signup_handler(body: SignupRequest) -> WebResult<impl Reply> {
 }
 
 pub async fn login_handler(body: LoginRequest) -> WebResult<impl Reply> {
+    println!("Login Request");
     let conn = establish_connection();
     let user = get_user(&body.email, &conn);
 
@@ -71,7 +85,8 @@ pub async fn login_handler(body: LoginRequest) -> WebResult<impl Reply> {
     }
 }
 
-pub async fn users_handler(id: i32) -> WebResult<impl Reply> {
+pub async fn users_handler(_id: i32) -> WebResult<impl Reply> {
+    println!("Users Request");
     let conn = establish_connection();
     let db_users = get_users(&conn);
     let mut users: Vec<UserResponse> = vec![];
@@ -88,6 +103,7 @@ pub async fn users_handler(id: i32) -> WebResult<impl Reply> {
 }
 
 pub async fn update_handler(id: i32, body: UpdateRequest) -> WebResult<impl Reply> {
+    println!("Update Request");
     let conn = establish_connection();
     update_user(id, body, &conn);
     Ok(reply())
