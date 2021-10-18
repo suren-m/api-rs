@@ -31,7 +31,7 @@ chmod +x ./app/flow_test.sh
     * kustomization manifests to run the solution on Kubernetes if required. (not fully tested yet)
 
 ```
-api-rs on  main [!] 
+api-rs on  main [✘?] 
 ❯ tree -L 3
 .
 ├── app
@@ -43,17 +43,17 @@ api-rs on  main [!]
 │   ├── migrations
 │   │   ├── 00000000000000_diesel_initial_setup
 │   │   └── 2021-10-16-175923_create_users
-│   ├── src
-│   │   ├── auth.rs
-│   │   ├── bin
-│   │   ├── crypto.rs
-│   │   ├── dto.rs
-│   │   ├── error.rs
-│   │   ├── lib.rs
-│   │   ├── models.rs
-│   │   ├── repository.rs
-│   │   ├── schema.rs
-│   │   └── seed.rs
+│   └── src
+│       ├── auth.rs
+│       ├── bin
+│       ├── crypto.rs
+│       ├── dto.rs
+│       ├── error.rs
+│       ├── handlers.rs
+│       ├── lib.rs
+│       ├── models.rs
+│       ├── repository.rs
+│       └── schema.rs
 ├── docker-compose.yml
 ├── _k8s
 │   ├── base
@@ -70,6 +70,8 @@ api-rs on  main [!]
 │   ├── init.sql
 │   └── my-postgres.conf
 └── README.md
+
+13 directories, 23 files
 ```
 
 #### Essential Rust Frameworks and Crates Used
@@ -82,7 +84,7 @@ api-rs on  main [!]
 * Serde for serializing and deserializing json
 * Bcrypt for hashing
 
-#### Todo
+#### Todo / Next Steps
 
 * Unit & Integration tests
 * Validations on Request Body (Email validation, max length, etc.)
