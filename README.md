@@ -88,6 +88,7 @@ api-rs on  main [!]
 * Validations on Request Body (Email validation, max length, etc.)
 * Logging and improvements to error handling
 * Auto docs generation and OpenAPI integration
+* Connection Pooling for DB access
 * CI pipeline
 
 #### References:
