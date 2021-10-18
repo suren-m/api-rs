@@ -1,6 +1,8 @@
 # api-rs
 
-# To run locally using Docker: 
+Web API in Rust that demonstrates JWT based flows and data persistence using Postgres
+
+### To run locally using Docker: 
 
 ```
 docker-compose up --build
