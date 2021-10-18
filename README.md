@@ -4,13 +4,15 @@ Web API in Rust that demonstrates JWT based flows and data persistence using Pos
 
 ### To run locally using Docker: 
 
-```
+```bash
 docker-compose up --build
 ```
 
 ### To test all the endpoints and flows
 
-```
+```bash
+# requires curl & jq
+
 chmod +x app/flow_test.sh
 app/flow_test.sh
 ```
@@ -30,7 +32,7 @@ app/flow_test.sh
 * _k8s 
     * kustomization manifests to run the solution on Kubernetes if required. (not fully tested yet)
 
-```
+```bash
 api-rs on  main [✘?] 
 ❯ tree -L 3
 .
