@@ -1,5 +1,3 @@
-# jwt-auth-rs
-
 Web API in Rust that demonstrates JWT based flows and data persistence using Postgres
 
 ### To run: (both api and postgres)
